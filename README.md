@@ -13,8 +13,22 @@ Got the Keyboard and touch pad working as well (well thank internet search engin
   
       { HID_USB_DEVICE(USB_VENDOR_ID_MICROSOFT, USB_DEVICE_ID_MS_TYPE_COVER_3), 
           .driver_data = 0 }, 
+  1.3 cd into the linux kernel directory and run (in terminal) [example: cd /home/user/Downloads/linux-3.16.2]
+      cp /boot/config-`uname -r` .config
+      
+  1.4 In cases where your kernel source is significantly newer than the existing config file, you'll be presented with         all of the new config options for which there is no existing config file setting. You can either sit there and keep       hitting Enter to take the default (generally safe), or you can just run (which emulates exactly the same thing and       saves you all that time):
 
-  1.3 Recompiled the kernel and generated rpm files and installed new rpm files generated 
+      yes '' | make oldconfig
+      
+  1.5 (Optional) If you need to make any kernel config changes, do the following and save your changes when prompted:
+
+      make menuconfig
+
+  1.6 Clean the kernel source directory:
+
+      make clean
+      
+  1.7 Recompiled the kernel and generated rpm files and installed new rpm files generated 
      (N0te: install necessary packages if prompted)
      
       make -j `getconf _NPROCESSORS_ONLN` rpm-pkg LOCALVERSION=-surfacepro3-bijju
